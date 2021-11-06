@@ -68,5 +68,4 @@ router.post('/animals/adoption_approval/:id', checkAdmin, async (req, res) => {
     })
 })   
 
-
 module.exports = router;

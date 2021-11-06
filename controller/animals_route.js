@@ -94,6 +94,13 @@ router.get('/animals/apply_animal/:id', checkUser, async (req, res) => {
         console.log(`Error grabbing pet to check if user has already applied: ${error}`);
     })
 
+    const checkPets = await Pet.find({appliedMembers: { $all: req.session.user._id}})
+    .then((result) => { 
+        if (result.length > 0) {
+            doUpdate = false;
+        }
+    })
+
     if (doUpdate) {
         // Pet gets user added to applied members.
         await Pet.findByIdAndUpdate(req.params.id, {$push: {'appliedMembers': req.session.user._id}})
