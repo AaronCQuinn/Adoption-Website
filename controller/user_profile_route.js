@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models/user');
 const AdoptedPet = require('../models/adopted_pet');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 checkUser = function(req, res, next) {
     if (req.session.user) {
