@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const reviewSchema = new Schema({
     overallRating: {
         type: Number,
+        required: true
     },
     friendRecommend: {
         type: Number,

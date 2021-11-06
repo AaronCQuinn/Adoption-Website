@@ -34,6 +34,7 @@ router.post('/pet_intake', checkUser, upload.array('formFileMultiple'), (req, re
     const { animalName, animalAge, animalGender, 
             animalSpecies, animalBreed, animalReproduction, 
             animalWeight, animalBio } = req.body;
+            
     const newPet = new Pet({
         name: animalName,
         age: animalAge,

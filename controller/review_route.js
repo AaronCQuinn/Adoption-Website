@@ -11,14 +11,18 @@ function checkUser(req, res, next) {
 }
 
 router.post('/reviews/post_review', checkUser, async (req, res) => {
-    const newReview = new Review({
-        overallRating: req.body.overallRating,
-        friendRecommend: req.body.friendRating,
-        otherComments: req.body.otherComments,
-        user: req.session.user._id,
-    })
-    await newReview.save()
-    res.redirect('/');
+    if (req.body.overallRating) {
+        const newReview = new Review({
+            overallRating: req.body.overallRating,
+            friendRecommend: req.body.friendRating,
+            otherComments: req.body.otherComments,
+            user: req.session.user._id,
+        })
+        await newReview.save()
+        res.redirect('/');
+    } else {
+        res.redirect('/')
+    }
 })
 
 module.exports = router;

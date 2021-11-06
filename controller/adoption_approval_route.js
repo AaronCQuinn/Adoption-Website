@@ -3,14 +3,8 @@ const router = express.Router();
 const User = require('../models/user');
 const Pet = require('../models/pet');
 const AdoptedPet = require('../models/adopted_pet');
-
-function checkUser(req, res, next) {
-    if (req.session.user) {
-        next();
-    } else {
-        res.redirect('*');
-    }
-}
+const fs = require('fs');
+const path = require('path');
 
 function checkAdmin(req, res, next) {
     if (req.session.user && req.session.user.isAdmin) {
@@ -32,9 +26,18 @@ router.get('/animals/adoption_approval', checkAdmin, async (req, res) => {
     res.render('../views/adoption_approval.ejs', {user: req.session.user, pet: appliedPets, applicants: applicantArray})
 })
 
-router.post('/animals/adoption_approval/:id', async (req, res) => {
+router.post('/animals/adoption_approval/:id', checkAdmin, async (req, res) => {
     const grabPet = await Pet.findOne({_id: req.params.id})
     .then(doc => {
+        for (let i = 0; i < doc.pictures.length; i++) {
+            fs.unlink(path.resolve('./public/uploads/pet_intake/' + doc.pictures[i].filename), (err => {
+                if (err) { 
+                    console.log(`Error deleting animal file directory: ${err}`);
+                } else {
+                    console.log(`Successfully deleted file related to animal: ${doc.pictures[i].filename}`);
+                }})
+            )
+        }
         AdoptedPet.insertMany(doc)
         .then(d => {
             console.log('Pet successfully copied to adopted collection');
@@ -63,7 +66,7 @@ router.post('/animals/adoption_approval/:id', async (req, res) => {
                 console.log(`Error saving to user's adopted animals: ${error}`);
             })
     })
-        
-})
+})   
+
 
 module.exports = router;

@@ -16,8 +16,8 @@ checkUser = function(req, res, next) {
 router.get('/userProfile/:id', checkUser, async (req, res) => {
     const grabUser = await Users.findById({_id: req.params.id})
     if (grabUser.adoptedPets.length > 0) {
-        const grabPets = await AdoptedPet.find({'_id': { $in: result.adoptedPets}})
-        .then(() => {
+        const grabPets = await AdoptedPet.find({'_id': { $in: grabUser.adoptedPets}})
+        .then((grabPets) => {
             res.render(path.resolve('./views/user_profile.ejs'), {adoptedPet: grabPets, user: req.session.user, userInfo: grabUser});
         })
     } else {
@@ -25,42 +25,49 @@ router.get('/userProfile/:id', checkUser, async (req, res) => {
     }
 });
 
+
 // Update route.
 router.post('/userProfile/edit/:id', checkUser, async (req, res) => {
+    let passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
     if (req.body.currentPw && req.body.newPw) {
-        const user = await Users.findById({_id: req.params.id})
-        if (await bcrypt.compare(req.body.currentPw, user.hashedPass)) {
-            try {
-                const salt = await bcrypt.genSalt();
-                const hashedPassword = await bcrypt.hash(req.body.newPw, salt);
-                if (req.body.phNumber) {
-                    update = {
-                        phoneNumber: req.body.phNumber,
-                        hashedPass: hashedPassword,
-                    };
-                } else {
-                    update = {
-                        hashedPass: hashedPassword,
-                    };
+        if (passRegex.test(req.body.newPw)) {
+            const user = await Users.findById({_id: req.params.id})
+            if (await bcrypt.compare(req.body.currentPw, user.hashedPass)) {
+                try {
+                    const salt = await bcrypt.genSalt();
+                    const hashedPassword = await bcrypt.hash(req.body.newPw, salt);
+                    if (req.body.phNumber) {
+                        update = {
+                            phoneNumber: req.body.phNumber,
+                            hashedPass: hashedPassword,
+                        };
+                    } else {
+                        update = {
+                            hashedPass: hashedPassword,
+                        };
+                    }
+                    await Users.findByIdAndUpdate({_id:req.params.id}, update)
+                } catch {
+                    console.log('Error creating hashed password.');
                 }
-                await Users.findByIdAndUpdate({_id:req.params.id}, update)
-            } catch {
-                console.log('Error creating hashed password.');
+            } else {
+                console.log('Wrong password.');
             }
         } else {
-            console.log('Wrong password.');
+            let phRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
+            if (phRegex.test(req.body.phNumber)) {
+                update = {
+                    phoneNumber: req.body.phNumber,
+                };
+                await Users.findByIdAndUpdate({_id:req.params.id}, update)
+                .then((result) => {
+                    res.redirect('/');
+                })
+                .catch((error) => {
+                    console.log(`Error updating user: ${error}`);
+                })
+            }
         }
-    } else {
-        update = {
-            phoneNumber: req.body.phNumber,
-        };
-        await Users.findByIdAndUpdate({_id:req.params.id}, update)
-        .then((result) => {
-            res.redirect('/');
-        })
-        .catch((error) => {
-            console.log(`Error updating user: ${error}`);
-        })
     }
 
     res.redirect('/userProfile/' + req.params.id);

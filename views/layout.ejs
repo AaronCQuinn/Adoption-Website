@@ -10,6 +10,7 @@
     <title>Aaron's Adoption</title>
 </head>
 <body>
+
     <!-- HEADER AREA -->
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top"> 
         <div class="container">
@@ -75,78 +76,80 @@
         </div>
     </div>
 
-        <!-- Registration Modal -->
-        <div class="modal fade" id="registrationModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <!-- Registration modal content-->
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container-fluid">
-                    <form action="/newUser" method="post">
-                        <h5>Login Information</h5>
-                        <hr class="my-2">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="form-group my-1">
-                                    <label for="emailInput" class="mb-1">Email address</label>
-                                    <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
-                                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="passwordInput" style="margin: 1% 0 1% 0;">Password</label>
-                                    <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password" required>
-                                </div>
-                                <h5>Profile Information</h5>
-                                <hr class="my-2">
-                                <div class="form-group mb-1">
-                                    <label for="nameInput" style="margin-bottom: 1%;">Full Name</label>
-                                    <input type="text" class="form-control" id="nameInput" placeholder="Full Name" name="fullName" required>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label for="telephoneInput" style="margin: 1% 0 1% 0;">Phone Number</label>
-                                    <input type="tel" class="form-control" id="telephoneInput" placeholder="Phone Number" name="phNumber" required>
-                                </div>
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <!-- Registration modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Registration</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                <form action="/newUser" method="post">
+                    <h5>Login Information</h5>
+                    <hr class="my-2">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group my-1">
+                                <label for="emailInput" class="mb-1">Email address</label>
+                                <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="passwordInput" style="margin: 1% 0 1% 0;">Password</label>
+                                <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password" required>
+                                <small id="emailHelp" class="form-text text-muted">Your password must include an uppercase letter, number, and special character.</small>
+                            </div>
+                            <h5>Profile Information</h5>
+                            <hr class="my-2">
+                            <div class="form-group mb-1">
+                                <label for="nameInput" style="margin-bottom: 1%;">Full Name</label>
+                                <input type="text" class="form-control" id="nameInput" placeholder="Full Name" name="fullName" required>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="telephoneInput" style="margin: 1% 0 1% 0;">Phone Number</label>
+                                <input type="tel" class="form-control" pattern="[0-9]{10}" id="telephoneInput" placeholder="###-###-####" name="phNumber" required>
                             </div>
                         </div>
                     </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    
-        <!-- Contact Info Modal (Removed from Nav Bar) -->
-        <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                Contact modal content
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Contact Us</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">Address: 1 Example Street</li>
-                        <li class="list-group-item">Postal Code: A1A 1A1</li>
-                        <li class="list-group-item">Phone Number: 709-111-111</li>
-                        <li class="list-group-item">Fax: 709-111-1111</li>
-                        <li class="list-group-item">Email: info@aaronsadoptions.com</li>
-                      </ul>
                 </div>
                     <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
+                </form>
             </div>
         </div>
+    </div>
+
+    <!-- Contact Info Modal (Removed from Nav Bar) -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            Contact modal content
+            <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Contact Us</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group">
+                    <li class="list-group-item">Address: 1 Example Street</li>
+                    <li class="list-group-item">Postal Code: A1A 1A1</li>
+                    <li class="list-group-item">Phone Number: 709-111-111</li>
+                    <li class="list-group-item">Fax: 709-111-1111</li>
+                    <li class="list-group-item">Email: info@aaronsadoptions.com</li>
+                    </ul>
+            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- END OF HEADER-->
     <%- body %>
 
