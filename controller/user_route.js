@@ -57,9 +57,9 @@ router.post('/loginUser', async (req, res) => {
     await bcrypt.compare(password, user.hashedPass)
     .then((result) => {
         if (result) {
-        console.log(`User ${user.fullName} has successfully logged in.`);
-        req.session.user = {fullName: user.fullName, _id: user._id, isAdmin: user.isAdmin};
-        res.redirect('/');
+            console.log(`User ${user.fullName} has successfully logged in.`);
+            req.session.user = {fullName: user.fullName, _id: user._id, isAdmin: user.isAdmin};
+            res.redirect('/');
         } else {
             res.redirect('/');
         }
