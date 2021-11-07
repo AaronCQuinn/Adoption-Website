@@ -53,6 +53,7 @@ router.post('/loginUser', async (req, res) => {
     const user = await Users.findOne({email: email});
     if (user === null) {
         console.log("User doesn't exist.");
+        res.redirect('/');
     }
     await bcrypt.compare(password, user.hashedPass)
     .then((result) => {
