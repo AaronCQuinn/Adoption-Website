@@ -75,7 +75,6 @@
     </section>
 
     <% if (approvedPet.length === 0) {} else { %>
-        <% if (user) { %>
         <% approvedPet.results.forEach((i, index) => { %>
         <% if (index % 2 == 0) { %>
         <section class="bg-dark p-5 text-light">
@@ -115,15 +114,18 @@
                         </div>
                     </div>
                     <div class="row my-4">
-                    <% if (i.appliedMembers.length > 0) { %> 
-                      <% if (i.appliedMembers.includes(user._id)) { %>
-                          <button href="#" class="btn btn-secondary mb-2" disabled>You have already applied to adopt this animal</button>
-                          <a href="/animals/remove_animal_application/<%=i._id%>" class="btn btn-danger mb-2">Remove Adoption Application</a>
-                      <% } else { %> 
+                    <% if (user) { %> 
+                      <% if (i.appliedMembers.length > 0) { %> 
+                        <% if (i.appliedMembers.includes(user._id)) { %>
+                            <button href="#" class="btn btn-secondary mb-2" disabled>You have already applied to adopt this animal</button>
+                            <a href="/animals/remove_animal_application/<%=i._id%>" class="btn btn-danger mb-2">Remove Adoption Application</a>
+                        <% } else { %> 
+                            <a href="/animals/apply_animal/<%=i._id%>" class="btn btn-success mb-2">Apply to Adopt</a>
+                        <% }} else { %>
                           <a href="/animals/apply_animal/<%=i._id%>" class="btn btn-success mb-2">Apply to Adopt</a>
-                      <% }} else { %>
-                        <a href="/animals/apply_animal/<%=i._id%>" class="btn btn-success mb-2">Apply to Adopt</a>
-                      <% } %> 
+                        <% }} else { %>
+                          <a data-bs-toggle="modal" data-bs-target="#registrationModal" class="btn btn-danger mb-2">You must register as a member in order to apply to adopt.</a>
+                        <% } %> 
                       </div>
                 </div>
                 <div class="col-sm my-3">
@@ -169,7 +171,7 @@
                 </div>
             </div> 
         </section>
-        <% });}} %>
+        <% });} %>
         <section class="bg-light mt-3">
             <div class="container d-flex justify-content-center">
               <nav aria-label="Page navigation example">

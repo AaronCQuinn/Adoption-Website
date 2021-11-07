@@ -23,8 +23,9 @@ function checkAdmin(req, res, next) {
     }
 }
 
-router.get('/animals', checkUser, pageination.pagination(Pet, true), async (req, res) => {
+router.get('/animals', pageination.pagination(Pet, true), async (req, res) => {
     const approvedPet = res.paginatedResults;
+    console.log(approvedPet);
     res.render(path.resolve('./views/animals'), {user: req.session.user, approvedPet: approvedPet,  currentURL: req.url});
 })
 

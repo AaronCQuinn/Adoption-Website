@@ -87,7 +87,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                <form action="/newUser" method="post">
+                <form action="/newUser" method="post" class="needs-validation" novalidate>
                     <h5>Login Information</h5>
                     <hr class="my-2">
                     <div class="row">
@@ -96,22 +96,24 @@
                                 <label for="emailInput" class="mb-1">Email address</label>
                                 <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                <div class="invalid-feedback">Incorrect e-mail format.</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="passwordInput" style="margin: 1% 0 1% 0;">Password</label>
-                                <input type="password" class="form-control" id="passwordInput" placeholder="Password" name="password" required>
-                                <small id="passwordHelp" class="form-text text-muted">Your password must include an uppercase letter, number, and special character and be between 6-16 characters long.</small>
+                                <input type="password" class="form-control" id="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="Password" name="password" required>
+                                <div class="invalid-feedback">Your password must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.</div>
                             </div>
                             <h5>Profile Information</h5>
                             <hr class="my-2">
                             <div class="form-group mb-1">
                                 <label for="nameInput" style="margin-bottom: 1%;">Full Name</label>
                                 <input type="text" class="form-control" id="nameInput" placeholder="Full Name" name="fullName" required>                                
-                                <small id="nameHelp" class="form-text text-muted">Your first and last name.</small>
+                                <div class="invalid-feedback">Please include your first and last name.</div>
                             </div>
                             <div class="form-group mb-3">
                                 <label for="telephoneInput" style="margin: 1% 0 1% 0;">Phone Number</label>
                                 <input type="tel" class="form-control" pattern="[0-9]{10}" id="telephoneInput" placeholder="###-###-####" name="phNumber" required>
+                                <div class="invalid-feedback">Invalid phone number format.</div>
                             </div>
                         </div>
                     </div>
@@ -169,6 +171,17 @@
             $('#fencedArea').prop('disabled', true);
         }
     }
+
+    var forms = document.querySelectorAll('.needs-validation');
+    Array.prototype.slice.call(forms).forEach(form => {
+        form.addEventListener("submit", (event) => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        })
+    }, false);
 </script>
 
 </html>

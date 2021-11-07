@@ -25,10 +25,9 @@ router.get('/userProfile/:id', checkUser, async (req, res) => {
     }
 });
 
-
 // Update route.
 router.post('/userProfile/edit/:id', checkUser, async (req, res) => {
-    let passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    let passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     if (req.body.currentPw && req.body.newPw) {
         if (passRegex.test(req.body.newPw)) {
             const user = await Users.findById({_id: req.params.id})

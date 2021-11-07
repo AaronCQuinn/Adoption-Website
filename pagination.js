@@ -58,7 +58,6 @@ function pagination(model, approved) {
         queryKeys.forEach((key, value) => {
             if (key[0] === 'wll' || key[0] === 'all') {
                 key[1] = parseInt(key[1]);
-                console.log(key[1]);
                 if (key[0] === 'all') {
                     if (key[1] !== undefined) {
                         lowAge = key[1];
@@ -94,7 +93,6 @@ function pagination(model, approved) {
         }
         filter['inventoryApproved'] = approved;
 
-        console.log(filter);
         try {
             results.results = await model.find(filter).sort({'createdAt': -1}).exec();
             results.results = results.results.slice(startIndex, endIndex);

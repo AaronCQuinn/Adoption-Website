@@ -5,7 +5,7 @@ const Users = require('../models/user');
 const bcrypt = require('bcryptjs');
 
 let userValid = function(req, res, next) {
-    let passRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/;
+    let passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/;
     let nameRegex = /^(([A-Za-z]+[\-\']?)*([A-Za-z]+)?\s)+([A-Za-z]+[\-\']?)*([A-Za-z]+)?$/;
     let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let phRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im
@@ -38,15 +38,24 @@ router.post('/newUser', userValid, async (req, res) => {
         } catch {
             console.log('Error creating hashed password.');
         };
-    newUser.save()
+    await newUser.save()
         .then((result) => {
             console.log("New user successfully added to the database: " + result);
-            res.redirect('/');
         })
         .catch((error) => {
             console.log("Error adding user to the database: " + error);
         })
-}});
+
+    await Users.findOne({email: email})
+    .then(user => {
+        req.session.user = {fullName: user.fullName, _id: user._id, isAdmin: user.isAdmin};
+        res.redirect('/');
+    })
+    .catch((error) => {
+        console.log(`Error finding new register in database: ${error}`);
+    })
+}})
+
 
 router.post('/loginUser', async (req, res) => {
     const {email, password} = req.body;
