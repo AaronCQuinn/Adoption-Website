@@ -33,7 +33,7 @@ Major learning points in this project:
   - MongoDB databasing
     - Learned different databasing relationships used in this project, such as one-to-many.
       
-  - Bootstrap
+  - Bootstrap 5
     - Improvements to HTML structuring methodology.
     - Learnt the specifics of the Bootstrap framework
     - CSS positioning propeties such as grid and flexbox.
