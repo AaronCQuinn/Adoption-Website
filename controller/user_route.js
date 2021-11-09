@@ -56,14 +56,13 @@ router.post('/newUser', userValid, async (req, res) => {
     })
 }})
 
-
 router.post('/loginUser', async (req, res) => {
     const {email, password} = req.body;
     const user = await Users.findOne({email: email});
     if (user === null) {
         console.log("User doesn't exist.");
-        res.redirect('/');
-    }
+        res.redirect('/?error=' + encodeURIComponent('Incorrect_Credential'));
+    } else {
     await bcrypt.compare(password, user.hashedPass)
     .then((result) => {
         if (result) {
@@ -71,10 +70,11 @@ router.post('/loginUser', async (req, res) => {
             req.session.user = {fullName: user.fullName, _id: user._id, isAdmin: user.isAdmin};
             res.redirect('/');
         } else {
-            res.redirect('/');
+            res.redirect('/?error=' + encodeURIComponent('Incorrect_Credential'));
         }
     })
     .catch((error) => console.log(`Error comparing password: ${error}`))
+    }
 });
 
 router.get('/logout', (req, res) => {

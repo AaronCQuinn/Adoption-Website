@@ -66,6 +66,9 @@
                         <label for="passwordInputLogin">Password</label>
                         <input type="password" class="form-control mb-3" id="passwordInputLogin" placeholder="Password" name="password" required>
                     </div>
+                    <div class="alert alert-danger" id="loginError" role="alert">
+                        Incorrect login credentials, please try again.
+                    </div>
             </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Login</button>
@@ -182,6 +185,17 @@
             form.classList.add('was-validated');
         })
     }, false);
+
+    $(document).ready( () => {
+        $('#loginError').hide();
+        const urlParams = new URLSearchParams(window.location.search);
+        const myParam = urlParams.get('error');
+        if (myParam === 'Incorrect_Credential') {
+            $('#loginError').show();
+            $('#loginModal').modal('show');
+        }
+    })
+
 </script>
 
 </html>
