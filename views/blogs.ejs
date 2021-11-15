@@ -18,7 +18,7 @@
     <% blogs.results.forEach((b, index) => { %>
     <% if (index % 2 === 0) { %>
         <section class="bg-light p-5">
-        <div class="container d-flex-column w-50">
+        <div class="container d-flex-column">
             <div class="text-dark d-flex align-items-center">
               <h2 class="flex-grow-1"><%= b.blogTitle %></h2>
               <% if (user && user.isAdmin) { %> 
@@ -77,7 +77,7 @@
     <!-- Dark Blog Sections -->
     <% } else { %>
       <section class="bg-dark text-light p-5">
-      <div class="container d-flex-column w-50">
+      <div class="container d-flex-column">
           <div class="text-dark d-flex align-items-center">
             <h2 class="flex-grow-1 text-light"><%= b.blogTitle %></h2>
             <% if (user && user.isAdmin) { %>
@@ -89,6 +89,7 @@
             <div><%= createDate %> </div>
             <div class="my-5 justify-content-between"> 
               <div class="text-start my-5"> <%= b.blogText %> </div>
+              <div class="col-sm">
               <div id="carouselDark<%= index %>" class="carousel slide mb-3" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                   <% if (b.blogPictures.length === 0) { %>
@@ -128,6 +129,7 @@
                     <span class="visually-hidden">Next</span>
                   </button>
                 <% } %>
+                </div>
               </div>
             </div>
         </div>

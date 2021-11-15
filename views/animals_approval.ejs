@@ -34,11 +34,11 @@
                         <div class="mb-1">Gender: <%=i.gender%></div>
                         <div class="mb-1">Species: <%=i.species%></div>
                     </div>
-                    <div class="col-md">
+                    <div class="col">
                         <div class="col mb-1">Breed: <%= i.breed %></div>
                         <div class="col mb-1">Sterile: <%= i.sterile %></div>
                         <div class="col mb-1">Weight: <%= i.weight %>lbs</div>
-                        <div class="col mb-1">Date Received: <%=i.intakeApplyDate%></div>
+                        <div class="col mb-1">Date Received: <%=i.intake.intakeApplyDate%></div>
                     </div>
                 </div>
                 <form action="/animals/approve_animal/<%=i._id%>" method="POST">
@@ -77,7 +77,7 @@
             </form>
 
             </div>
-            <div class="col">
+            <div class="col-sm">
                 <div id="i<%=index%>" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                     <% if (i.pictures.length === 0) { %>

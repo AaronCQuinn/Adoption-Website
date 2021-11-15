@@ -1,6 +1,5 @@
 .carousel img {
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
-    overflow: hidden;
-    height: 60vh;
+    height: 50vh;
 }
