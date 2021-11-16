@@ -36,5 +36,5 @@ Major learning points in this project:
   - Bootstrap 5
     - Improvements to HTML structuring methodology.
     - Learnt the specifics of the Bootstrap framework
-    - CSS positioning propeties such as grid and flexbox.
+    - CSS positioning properties such as grid and flexbox.
     - Breakpoints for mobile responsive design.
