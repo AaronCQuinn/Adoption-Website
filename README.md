@@ -26,7 +26,7 @@ Major learning points in this project:
       - Dynamic querying based on filter settings user selects.
     
     - EJS (Embedded Javascript Templates)
-      - Set view enginge in express to serve dynamic content through EJS templates.
+      - Set view engine in express to serve dynamic content through EJS templates.
       - Dynamic serving of pet information.
       - Different layouts based on administrator or regular user privilege. 
     
