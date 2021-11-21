@@ -62,7 +62,7 @@
                   <% } %>
                 </li>
                 <li class="nav-item">
-                    <a href="/animals?page=1&limit=3"><div class="btn btn-secondary">Reset Filters</div></a>
+                    <a href="/animals?page=1&limit=5"><div class="btn btn-secondary">Reset Filters</div></a>
                 </li>
                 <li class="nav-item">
                   <input class="form-control me-2" type="search" id="search" placeholder="Search By Name" aria-label="Search">
@@ -177,12 +177,12 @@
               <nav aria-label="Page navigation example">
                 <ul class="pagination text-dark">
                   <% if (approvedPet.previous.page > 0) { %> 
-                  <li class="page-item"><a class="page-link" href="/animals?page=<%=approvedPet.previous.page%>&limit=3<%=currentURL.slice(23)%>">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="/animals?page=<%=approvedPet.previous.page%>&limit=5<%=currentURL.slice(23)%>">Previous</a></li>
                   <% } else { %>
                   <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                   <% } %> 
                   <% if (approvedPet.next.page && (approvedPet.results.length === 3)) { %>
-                    <li class="page-item"><a class="page-link" href="/animals?page=<%=approvedPet.next.page%>&limit=3<%=currentURL.slice(23)%>">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="/animals?page=<%=approvedPet.next.page%>&limit=5<%=currentURL.slice(23)%>">Next</a></li>
                   <% } else { %>
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                   <% } %> 
@@ -195,6 +195,6 @@
 
 <script>
   $('#search').change(() => {
-    $('#searchButton').prop('href', '/animals?page=1&limit=3&nameSearch=' + $('#search').val())
+    $('#searchButton').prop('href', '/animals?page=1&limit=5&nameSearch=' + $('#search').val())
   })
 </script>
