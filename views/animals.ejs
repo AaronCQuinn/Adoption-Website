@@ -181,7 +181,7 @@
                   <% } else { %>
                   <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                   <% } %> 
-                  <% if (approvedPet.next.page && (approvedPet.results.length === 3)) { %>
+                  <% if (approvedPet.next.page && (approvedPet.results.length === 5)) { %>
                     <li class="page-item"><a class="page-link" href="/animals?page=<%=approvedPet.next.page%>&limit=5<%=currentURL.slice(23)%>">Next</a></li>
                   <% } else { %>
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
